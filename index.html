@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KayyStyles_Wear</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<!-- MUSIC PLAYER -->
+<audio id="bgMusic" loop>
+    <source src="assets/music/song.mp3" type="audio/mp3">
+</audio>
+<button id="playMusicBtn">🎵 Play Music</button>
+
+<!-- NAVBAR -->
+<header>
+    <img src="assets/logo/logo.png" class="logo">
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#shop">Shop</a>
+        <a href="#about">About</a>
+        <a href="#lookbook">Lookbook</a>
+        <a href="#contact">Contact</a>
+    </nav>
+    <div class="icons">
+        <i class="fas fa-user" id="loginBtn"></i>
+        <i class="fas fa-shopping-cart" id="cartBtn"></i>
+    </div>
+</header>
+
+<!-- HERO SECTION -->
+<section id="home" class="hero">
+    <h1 class="fade-in">KAYYSTYLES_WEAR</h1>
+    <p class="fade-in">Streetwear for the bold.</p>
+    <a href="#shop" class="btn">Shop Now</a>
+</section>
+
+<!-- SHOP SECTION -->
+<section id="shop">
+    <h2>Our Products</h2>
+    <div id="productList" class="product-grid"></div>
+</section>
+
+<!-- CART PANEL -->
+<div id="cartPanel" class="cart-panel">
+    <h2>Your Cart</h2>
+    <div id="cartItems"></div>
+    <button id="checkoutBtn">Order on WhatsApp</button>
+</div>
+
+<!-- LOGIN MODAL -->
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <h2>Login / Signup</h2>
+        <input id="usernameInput" placeholder="Enter username">
+        <button id="saveUserBtn">Save</button>
+    </div>
+</div>
+
+<!-- ABOUT SECTION -->
+<section id="about">
+    <h2>About Us</h2>
+    <p><b>
+        Founded in 2024 by Khanyisile Katlego Zwane, a young visionary woman, 
+        KAYYSTYLES_WEAR embodies the spirit of hustle, entrepreneurship and bold self expression. 
+        Rooted in the streets of Soweto, our brand creates authentic streetwear that celebrates individuality, 
+        resilience and the drive to carve your own path. MORE than just fashion, we believe in building strong 
+        foundations both in style and in community, using our platform to support and uplift those in need. 
+        EVERY piece tells a story of ambition, creativity and the power of giving back, making 
+        KAYYSTYLES_WEAR NOT JUST a label but a movement.
+    </b></p>
+</section>
+
+<!-- LOOKBOOK -->
+<section id="lookbook">
+    <h2>Lookbook</h2>
+    <div class="gallery">
+        <img src="images/551448912_814778040958478_3272850146712202901_n.jpg">
+        <img src="images/552770925_1152793023460727_309022343020763754_n.jpg">
+        <img src="images/555767733_1340166047763641_8001311331206297186_n.jpg">
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+    <h2>Contact Us</h2>
+    <p>Whatsapp: <b>+27 61 089 1814</b></p>
+    <a href="https://wa.me/27610891814" class="btn">Order Now</a>
+</section>
+
+<footer>
+    <p>KAYYSTYLES_WEAR © 2025 — All Rights Reserved</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #fff;
+    color: #000;
+}
+
+:root {
+    --pink: #FF1493;
+}
+
+/* NAVBAR */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: white;
+    z-index: 1000;
+}
+
+.logo {
+    height: 60px;
+}
+
+nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+.icons i {
+    font-size: 22px;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+/* HERO */
+.hero {
+    height: 100vh;
+    background: var(--pink);
+    color: white;
+    text-align: center;
+    padding-top: 150px;
+}
+
+.btn {
+    background: black;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+/* PRODUCTS */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.product {
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.product img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+/* CART PANEL */
+.cart-panel {
+    position: fixed;
+    right: -350px;
+    top: 0;
+    width: 350px;
+    height: 100%;
+    background: white;
+    box-shadow: -3px 0 10px rgba(0,0,0,0.1);
+    padding: 20px;
+    transition: 0.3s;
+    z-index: 2000;
+}
+
+.cart-panel.open {
+    right: 0;
+}
+
+/* LOGIN MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 25px;
+    text-align: center;
+    width: 300px;
+    border-radius: 10px;
+}
+
+/* LOOKBOOK */
+.gallery {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+}
+
+.gallery img {
+    height: 250px;
+    border-radius: 10px;
+}
+
+/* MUSIC BUTTON */
+#playMusicBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--pink);
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    cursor: pointer;
+}
