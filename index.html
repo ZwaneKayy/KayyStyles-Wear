@@ -312,5 +312,32 @@ footer{margin-top:28px;padding:18px;border-radius:12px;background:transparent;di
     });
     cartTotalDiv.textContent = money(total);
   }
+
+  checkoutBtn.onclick = () => {
+  if(cart.length === 0){
+    alert("Your cart is empty.");
+    return;
+  }
+
+  const itemsText = cart.map(i => 
+    `${i.name} (${i.qty} x ${money(i.price)})`
+  ).join('\n'); // newline
+
+  const total = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+
+  let message =
+    `Hello, I want to place an order:\n\n` +
+    `${itemsText}\n\nTotal: ${money(total)}`;
+
+  const waNumber = BRAND.whatsapp.replace(/\D/g, '');
+
+  // ---- FIXED: encode URL message ----
+  const encodedMessage = encodeURIComponent(message);
+
+  const url = `https://wa.me/${waNumber}?text=${encodedMessage}`;
+
+  window.location.href = url; // <-- WORKS BETTER THAN window.open
+};
+
   </script>
   
