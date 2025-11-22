@@ -1,102 +1,316 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KayyStyles_Wear</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KayyStyles_Wear — Shop</title>
+<meta name="description" content="KayyStyles_Wear — empowering hustlers with bold style.">
+<style>
+:root{
+  --hot-pink:#FF1493;
+  --card:#ffffff;
+  --muted:rgba(0,0,0,0.6);
+  --accent:#000000;
+  --radius:14px;
+  --maxw:1200px;
+  --text:#000000;
+  --brand-font:'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+  --currency:'R';
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--brand-font);background:var(--hot-pink);color:var(--text);line-height:1.4;font-weight:700}
+a{color:inherit;text-decoration:none}
+.container{max-width:var(--maxw);margin:28px auto;padding:0 20px}
 
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+/* Header */
+header{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+.brand{display:flex;gap:14px;align-items:center}
+.logo{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,#fff,rgba(255,255,255,0.9));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;color:var(--hot-pink);box-shadow:0 8px 30px rgba(0,0,0,0.15)}
+.brand h1{font-size:20px}
+nav{display:flex;gap:12px;align-items:center}
+.btn{background:var(--text);border:none;color:var(--card);padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:900}
+.ghost{background:transparent;border:2px solid rgba(0,0,0,0.06);padding:8px 12px;border-radius:12px;color:var(--card);cursor:pointer}
+
+/* Hero */
+.hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;margin:18px 0}
+.hero-card{background:rgba(255,255,255,0.12);padding:28px;border-radius:18px;backdrop-filter: blur(6px)}
+.hero h2{font-size:34px;margin-bottom:6px}
+.hero p{color:rgba(0,0,0,0.85);margin-bottom:12px}
+.cta-row{display:flex;gap:12px}
+
+/* Products grid */
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;margin-top:18px}
+.card{background:var(--card);border-radius:12px;padding:12px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.12)}
+.imgwrap{width:100%;height:300px;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(0,0,0,0.03), rgba(0,0,0,0.06))}
+.imgwrap img{width:100%;height:100%;object-fit:cover}
+.card h3{margin:10px 0;font-size:16px}
+.price{font-weight:900}
+.muted{color:var(--muted);font-size:13px;font-weight:900}
+
+/* Cart */
+.cart-btn{position:fixed;right:18px;bottom:18px;background:#000;color:#fff;width:64px;height:64px;border-radius:999px;border:none;display:flex;align-items:center;justify-content:center;font-weight:900;z-index:60}
+.drawer{position:fixed;right:18px;bottom:94px;width:360px;max-height:72vh;background:var(--card);border-radius:14px;padding:12px;overflow:auto;box-shadow:0 18px 40px rgba(0,0,0,0.2);display:none}
+.drawer.open{display:block}
+.cart-item{display:flex;gap:10px;padding:10px;border-bottom:1px dashed rgba(0,0,0,0.06)}
+.cart-item img{width:72px;height:72px;border-radius:8px;object-fit:cover}
+
+/* Footer */
+footer{margin-top:28px;padding:18px;border-radius:12px;background:transparent;display:flex;justify-content:space-between;align-items:center;color:rgba(0,0,0,0.9)}
+
+/* Modal */
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.45);display:none;align-items:center;justify-content:center;z-index:80}
+.modal{background:var(--card);padding:18px;border-radius:14px;max-width:920px;width:96%;display:grid;grid-template-columns:1fr 380px;gap:18px}
+.modal.open,.modal-backdrop.open{display:flex}
+
+/* About page */
+.about{margin-top:18px;padding:18px;border-radius:14px;background:rgba(255,255,255,0.08)}
+
+/* Responsive */
+@media (max-width:980px){
+  .hero{grid-template-columns:1fr}
+  .modal{grid-template-columns:1fr}
+  .imgwrap{height:240px}
+}
+
+/* small helpers */
+.badge{background:rgba(0,0,0,0.08);padding:6px 10px;border-radius:999px;font-weight:900}
+
+/* Music toggle */
+#musicToggle{
+  position:fixed;
+  bottom:18px;
+  left:18px;
+  background:rgba(0,0,0,0.6);
+  color:#fff;
+  border:none;
+  border-radius:50%;
+  width:50px;
+  height:50px;
+  z-index:100;
+  font-weight:900;
+  cursor:pointer;
+  transition:transform 0.2s, background 0.2s;
+}
+#musicToggle:hover{
+  background:rgba(0,0,0,0.85);
+  transform:scale(1.1);
+}
+</style>
 </head>
 <body>
-
-<!-- MUSIC PLAYER -->
-<audio id="bgMusic" loop>
-    <source src="assets/music/song.mp3" type="audio/mp3">
-</audio>
-<button id="playMusicBtn">🎵 Play Music</button>
-
-<!-- NAVBAR -->
+<div class="container">
 <header>
-    <img src="assets/logo/logo.png" class="logo">
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#shop">Shop</a>
-        <a href="#about">About</a>
-        <a href="#lookbook">Lookbook</a>
-        <a href="#contact">Contact</a>
-    </nav>
-    <div class="icons">
-        <i class="fas fa-user" id="loginBtn"></i>
-        <i class="fas fa-shopping-cart" id="cartBtn"></i>
+  <div class="brand">
+    <div class="logo" id="logo">KSW</div>
+    <div>
+      <h1 id="brandName">KayyStyles_Wear</h1>
+      <div class="muted" style="font-size:12px">Streetwear • Hustle • Community</div>
     </div>
+  </div>
+  <nav>
+    <button class="ghost" id="viewProducts">Products</button>
+    <button class="ghost" id="aboutBtn">About</button>
+    <button class="btn" id="ctaShop">Shop</button>
+  </nav>
 </header>
 
-<!-- HERO SECTION -->
-<section id="home" class="hero">
-    <h1 class="fade-in">KAYYSTYLES_WEAR</h1>
-    <p class="fade-in">Streetwear for the bold.</p>
-    <a href="#shop" class="btn">Shop Now</a>
-</section>
-
-<!-- SHOP SECTION -->
-<section id="shop">
-    <h2>Our Products</h2>
-    <div id="productList" class="product-grid"></div>
-</section>
-
-<!-- CART PANEL -->
-<div id="cartPanel" class="cart-panel">
-    <h2>Your Cart</h2>
-    <div id="cartItems"></div>
-    <button id="checkoutBtn">Order on WhatsApp</button>
-</div>
-
-<!-- LOGIN MODAL -->
-<div id="loginModal" class="modal">
-    <div class="modal-content">
-        <h2>Login / Signup</h2>
-        <input id="usernameInput" placeholder="Enter username">
-        <button id="saveUserBtn">Save</button>
+<section class="hero">
+  <div class="hero-card">
+    <span class="badge">New Drop</span>
+    <h2 id="heroTitle">Empowering Hustlers, One Fit at a Time.</h2>
+    <p id="heroDesc">Bold streetwear for entrepreneurs, hustlers and community builders. Limited runs — crafted with purpose.</p>
+    <div class="cta-row">
+      <button class="btn" id="shopNowBtn">Browse Collection</button>
+      <button class="ghost" id="sizeGuideBtn">Size guide</button>
     </div>
-</div>
-
-<!-- ABOUT SECTION -->
-<section id="about">
-    <h2>About Us</h2>
-    <p><b>
-        Founded in 2024 by Khanyisile Katlego Zwane, a young visionary woman, 
-        KAYYSTYLES_WEAR embodies the spirit of hustle, entrepreneurship and bold self expression. 
-        Rooted in the streets of Soweto, our brand creates authentic streetwear that celebrates individuality, 
-        resilience and the drive to carve your own path. MORE than just fashion, we believe in building strong 
-        foundations both in style and in community, using our platform to support and uplift those in need. 
-        EVERY piece tells a story of ambition, creativity and the power of giving back, making 
-        KAYYSTYLES_WEAR NOT JUST a label but a movement.
-    </b></p>
-</section>
-
-<!-- LOOKBOOK -->
-<section id="lookbook">
-    <h2>Lookbook</h2>
-    <div class="gallery">
-        <img src="images/551448912_814778040958478_3272850146712202901_n.jpg">
-        <img src="images/552770925_1152793023460727_309022343020763754_n.jpg">
-        <img src="images/555767733_1340166047763641_8001311331206297186_n.jpg">
+    <div style="margin-top:18px;color:rgba(0,0,0,0.85)">
+      <strong>Contact:</strong> <a href="https://wa.me/27610891814" id="whatsappLink" target="_blank">WhatsApp</a> • Delivery: <span id="deliveryText">PepCourier</span>
     </div>
+  </div>
+  <div class="hero-card" style="display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:center">
+    <img id="heroImage" src="images/550795387_1552928425853090_6522354436511204041_n.jpg" alt="hero" style="width:100%;border-radius:12px;max-height:340px;object-fit:cover">
+    <div style="width:100%;display:flex;gap:8px;justify-content:space-between;align-items:center">
+      <div>
+        <div class="muted">Free returns within 7 days</div>
+        <div style="font-weight:900">Secure chat & pay on WhatsApp</div>
+      </div>
+      <div>
+        <div class="muted" style="font-size:12px">Follow us</div>
+        <div style="display:flex;gap:12px;margin-top:8px">
+          <a href="https://www.instagram.com/kayystyles_wear?igsh=emMxZHF1b2tOdDlm" id="instaLink" target="_blank" class="muted">Instagram</a>
+          <a href="https://www.facebook.com/profile.php?id=61578593525148&mibextid=ZbWKwL" id="fbLink" target="_blank" class="muted">Facebook</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- CONTACT -->
-<section id="contact">
-    <h2>Contact Us</h2>
-    <p>Whatsapp: <b>+27 61 089 1814</b></p>
-    <a href="https://wa.me/27610891814" class="btn">Order Now</a>
+<section>
+<h3 style="margin-bottom:8px">Collection</h3>
+<div class="products" id="productsGrid"></div>
+</section>
+
+<section class="about">
+<h3>About KayyStyles_Wear</h3>
+<p style="margin-top:8px">KayyStyles_Wear is a proudly South African brand established in 2024 by <strong>Khanyisile Katlego Zwane</strong>, a young visionary female driven by passion, ambition, and purpose. The brand represents hustlers, dreamers, and entrepreneurs who work tirelessly to build better futures for themselves. Beyond fashion, KayyStyles_Wear believes in uplifting and helping the community, creating a movement of empowerment through style and opportunity.</p>
 </section>
 
 <footer>
-    <p>KAYYSTYLES_WEAR © 2025 — All Rights Reserved</p>
+<div>
+<strong id="brandFooter">KayyStyles_Wear</strong>
+<div class="muted">Made with ❤️ in South Africa</div>
+</div>
+<div class="muted">© <span id="year"></span> All rights reserved</div>
 </footer>
+</div>
 
-<script src="script.js"></script>
-</body>
-</html>
+<!-- cart button & drawer -->
+<button class="cart-btn" id="openCart">🛒</button>
+<div class="drawer" id="cartDrawer">
+<h4>Your cart</h4>
+<div id="cartItems"></div>
+<div style="padding:12px;margin-top:8px;border-top:1px solid rgba(0,0,0,0.06)">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+    <div class="muted">Total</div>
+    <div id="cartTotal" style="font-weight:900">R0.00</div>
+  </div>
+  <button class="btn" id="checkoutBtn">Checkout via WhatsApp</button>
+</div>
+</div>
+
+<!-- product modal -->
+<div class="modal-backdrop" id="modalBackdrop">
+<div class="modal" id="productModal">
+  <div>
+    <img id="modalImg" src="" alt="product" style="width:100%;border-radius:12px;max-height:520px;object-fit:cover">
+  </div>
+  <div>
+    <h3 id="modalTitle">Product title</h3>
+    <div class="muted" id="modalTag">Category</div>
+    <div style="margin:14px 0"><strong id="modalPrice">R0.00</strong></div>
+    <p class="muted" id="modalDesc">Product description goes here. Replace with accurate details about fabric, fit, and care.</p>
+    <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
+      <select id="sizeSelect">
+        <option value="S">S</option>
+        <option value="M" selected>M</option>
+        <option value="L">L</option>
+        <option value="XL">XL</option>
+      </select>
+      <input id="qtyInput" type="number" value="1" min="1" style="width:72px;padding:8px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);background:transparent">
+    </div>
+    <div style="margin-top:12px;display:flex;gap:8px">
+      <button class="btn" id="addToCartBtn">Add to cart</button>
+      <button class="ghost" id="closeModal">Close</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Background music -->
+<audio id="bgMusic" autoplay loop>
+  <source src="music/deep-house-music-347770.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+<button id="musicToggle">🎵</button>
+
+<script>
+  // Music toggle
+  const music = document.getElementById('bgMusic');
+  const toggle = document.getElementById('musicToggle');
+  toggle.addEventListener('click', () => {
+    if(music.paused){ music.play(); toggle.textContent="🔊"; }
+    else{ music.pause(); toggle.textContent="🔇"; }
+  });
+  
+  // Brand info
+  const BRAND={name:'KayyStyles_Wear',logoText:'KSW',accent:'#FF1493',whatsapp:'+27 61 089 1814',delivery:'PepCourier',currency:'R'};
+  function money(n){return BRAND.currency+n.toFixed(2);}
+  document.getElementById('year').textContent=new Date().getFullYear();
+  document.getElementById('brandName').textContent=BRAND.name;
+  document.getElementById('brandFooter').textContent=BRAND.name;
+  document.getElementById('logo').textContent=BRAND.logoText;
+  document.getElementById('deliveryText').textContent=BRAND.delivery;
+  
+  const waNumber=BRAND.whatsapp.replace(/\D/g,'');
+  document.getElementById('whatsappLink').href = `https://wa.me/${waNumber}`;
+  document.getElementById('instaLink').href = 'https://www.instagram.com/kayystyles_wear?igsh=emMxZHF1b2tOdDlm';
+  document.getElementById('fbLink').href = 'https://www.facebook.com/profile.php?id=61578593525148&mibextid=ZbWKwL';
+  
+  // Products array with ready placeholders
+  const PRODUCTS=[
+    {id:1,name:'Product 1',price:120.00,img:'images/550795387_1552928425853090_6522354436511204041_n.jpg',tag:'5 panel cap',desc:'Adjustable street cap. Top off your look while showing your greatness',stock:12},
+    {id:2,name:'Product 2',price:300.00,img:'images/551417232_1381918726683369_9028628006884181260_n.jpg',tag:'Sweater(Ghosted)',desc:'Cozy, soft cotton sweater designed for hustlers on the move. Perfect for layering while staying bold and stylish.',stock:8},
+    {id:3,name:'Product 3',price:320.00,img:'images/551449728_1443805500041815_523081128855319836_n.jpg',tag:'Sweater(Heist Chronicles)',desc:'Cozy, comfy sweater designed to stay bold and stylish.With a pocket size front print of KayyStyles',stock:5},
+    {id:4,name:'Product 4',price:400.00,img:'images/552724330_1181925717083005_8958106243405243809_n.jpg',tag:'Hoodie(Effortlessly Cool)',desc:'Soft, cozy hoodie from the KayyStyles collection.',stock:20},
+    {id:5,name:'Product 5',price:400.00,img:'images/552770925_1152793023460727_309022343020763754_n.jpg',tag:'Hoodie(Get Rich) Collab with V.C',desc:'Cozy hoodie with Get Rich and Escape Hardship print. Stay bold, motivated, and ready to take on the day in style.',stock:6},
+    {id:6,name:'Product 6',price:260.00,img:'images/563529468_663099123540769_6962159710371769056_n.jpg',tag:'T shirt(Stay Hungry)',desc:'Soft, comfortable T-shirt with Stay Hungry print. Designed to keep you bold, motivated, and standing out in style.',stock:10},
+    {id:7,name:'Product 7',price:400.00,img:'images/563615690_787586154156607_4719365661553066269_n.jpg',tag:'Hoodie(Culture)',desc:'Cozy hoodie celebrating the KayyStyles culture of being great. Bold, stylish, and made to inspire confidence every day.With a pocket size front print of KayyStyles',stock:15},
+    {id:8,name:'Product 8',price:400.00,img:'images/551448912_814778040958478_3272850146712202901_n.jpg',tag:'Hoodie(Greatness Ahead)',desc:'Cozy hoodie with Greatness Ahead print. Bold, stylish, and designed to inspire confidence and positivity every day.With a pocket size front print of KayyStyles',stock:7}
+  ];
+  
+  // Render products
+  const grid=document.getElementById('productsGrid');
+  PRODUCTS.forEach(p=>{
+    const el=document.createElement('div'); el.className='card';
+    el.innerHTML=`<div class="imgwrap"><img src="${p.img}" alt="${p.name}"></div><h3>${p.name}</h3><div class="muted">${p.tag}</div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px"><div class="price">${money(p.price)}</div><button class="ghost" onclick="openModal(${p.id})">View</button></div>`;
+    grid.appendChild(el);
+  });
+  
+  // Modal functionality
+  const modalBackdrop=document.getElementById('modalBackdrop');
+  let currentProduct=null;
+  window.openModal=function(id){
+    const p=PRODUCTS.find(x=>x.id===id); if(!p)return;
+    currentProduct=p;
+    document.getElementById('modalImg').src=p.img;
+    document.getElementById('modalTitle').textContent=p.name;
+    document.getElementById('modalTag').textContent=p.tag;
+    document.getElementById('modalPrice').textContent=money(p.price);
+    document.getElementById('modalDesc').textContent=p.desc;
+    document.getElementById('qtyInput').value=1;
+    modalBackdrop.classList.add('open');
+  };
+  
+  document.getElementById('closeModal').onclick=function(){
+    modalBackdrop.classList.remove('open');
+  };
+  
+  modalBackdrop.addEventListener('click', e=>{
+    if(e.target===modalBackdrop){
+      modalBackdrop.classList.remove('open');
+    }
+  });
+  
+  // Cart
+  const cartBtn=document.getElementById('openCart');
+  const drawer=document.getElementById('cartDrawer');
+  const cartItemsDiv=document.getElementById('cartItems');
+  const cartTotalDiv=document.getElementById('cartTotal');
+  const checkoutBtn=document.getElementById('checkoutBtn');
+  let cart=[];
+  
+  cartBtn.onclick=()=>drawer.classList.toggle('open');
+  
+  document.getElementById('addToCartBtn').onclick=()=>{
+    const qty=parseInt(document.getElementById('qtyInput').value)||1;
+    const item={...currentProduct,qty};
+    cart.push(item); 
+    renderCart();
+    modalBackdrop.classList.remove('open');
+  };
+  
+  function renderCart(){
+    cartItemsDiv.innerHTML='';
+    let total=0;
+    cart.forEach((i,idx)=>{
+      const div=document.createElement('div'); 
+      div.className='cart-item';
+      div.innerHTML=`<img src="${i.img}"><div><div>${i.name}</div><div class="muted">${money(i.price)} x ${i.qty}</div></div>`;
+      cartItemsDiv.appendChild(div);
+      total+=i.price*i.qty;
+    });
+    cartTotalDiv.textContent = money(total);
+  }
+  </script>
+  
